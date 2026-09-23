@@ -17,7 +17,8 @@ Die Animation ist erfunden. Die Gerätemerkmale kommen aus Androids lokalen Disp
 
 `ist-handy-0.1.0.apk` auf dein Android-Gerät kopieren, antippen und für die verwendete Datei-App bei Bedarf „Unbekannte Apps installieren“ erlauben. Danach **Ist Handy?** öffnen. Die APK ist mit einem Entwicklungsschlüssel signiert und zum direkten Ausprobieren gedacht, nicht zur Veröffentlichung im Play Store.
 
-Alternativ mit aktivem USB-Debugging: `adb install -r ist-handy-0.1.0.apk`.
+Für Entwicklungstests wird ausschließlich ein ausdrücklich ausgewählter Emulator
+verwendet; siehe [EMULATOR-VERIFICATION.md](EMULATOR-VERIFICATION.md).
 
 ## Was „erkennen“ hier bedeutet
 
@@ -28,7 +29,8 @@ Android bietet keinen allgemein zuverlässigen Schalter „Handy oder Tablet“.
 Native Java-Android-App mit eigener Canvas-Animation, ohne zusätzliche Bibliotheken. Siehe [BUILD.md](BUILD.md) für den SDK-Build und [PROGRESS.md](PROGRESS.md) für den Teststand.
 
 Stand 23.09.2026: 12 Klassifikationsfälle, APK-Signatur, Ausrichtung und leere
-Berechtigungsliste geprüft. API-34-Emulatoraufnahmen vom 21.09. zeigen Handy- und
-Tablet-Ergebnis sowie den Scan nach Wiederöffnen. Installation und Kaltstart auf
-einem Pixel 10a waren am 23.09. erfolgreich; der vollständige Ablauf auf echten
-Geräten steht noch aus. Der Scan scrollt am Ende automatisch zum Ergebnis.
+Berechtigungsliste geprüft. Die neue API-34-Emulatormatrix besteht vier Layouts:
+Handy, kleines Display mit 200 % Schrift, Querformat und Tablet-Konfiguration.
+Handy-/Tablet-Urteil und Rotation stimmen; Wiederöffnen startet einen neuen Scan.
+Das sind Displayvarianten eines Emulators, keine vier Geräte oder Android-Versionen.
+Der Scan scrollt am Ende automatisch zum Ergebnis.

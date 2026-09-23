@@ -1,5 +1,17 @@
 # Fortschritt
 
+## 2026-09-23 abends — neue Emulatormatrix bestanden
+
+- Vier API-34-Displaykonfigurationen: 411-dp-Handy, 320 dp mit 200 % Schrift,
+  tatsächliches Querformat und 800-dp-Tablet.
+- Zehn Prüfungen bestanden: Emulatorstart, korrektes Urteil und Rotation in
+  jedem Layout sowie Abschluss nach Wiederöffnen. Die unmittelbare Aufnahme
+  nach Wiederöffnen zeigt den neu gestarteten Scan bei 15 %.
+- APK 0.1.0 unverändert; Screenshots, XML und JSON als zusätzliche Release-Belege.
+- Sicheres Emulator-Testskript eingecheckt; kein physisches Gerät verwendet.
+- Details und Reproduktion: EMULATOR-VERIFICATION.md. Frühere Aufzeichnungen unten
+  bleiben als Historie erhalten; der dort damals nicht verfügbare Emulator läuft wieder.
+
 ## 2026-09-23 — Prototyp 0.1.0 geprüft und gesichert
 
 - Automatischer Fake-Scan ohne Startknopf oder Kamera.
@@ -24,7 +36,7 @@ Auslieferung: `ist-handy-0.1.0.apk` (20.957 Bytes).
 SHA-256: `F4026354EE70508B8A400E704CE4B9310E8B5AEF45BD0CB25317930307D2742E`.
 
 Die Screenshots liegen mit `VERIFICATION.md` neben der ausgelieferten APK.
-Der Emulator war bei der erneuten ADB-Abfrage am 23.09. offline. Eine erste
+Der Emulator war bei der damaligen ADB-Abfrage am 23.09. offline. Eine erste
 Abfrage in der Sandbox scheiterte zusätzlich am Benutzerverzeichnis; außerhalb
 der Sandbox funktionierte die Abfrage. Die Emulatorbelege sind ausdrücklich vom
 21.09.; es wurde kein neuer Lauf am 23.09. behauptet.

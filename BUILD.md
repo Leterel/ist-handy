@@ -5,7 +5,7 @@
 - Windows mit PowerShell 7 oder Windows PowerShell 5.1.
 - JDK 17 oder neuer (getestet: Temurin 21.0.12).
 - Offizielles Android SDK: `platforms;android-36`, `build-tools;36.0.0`.
-- Optional `platform-tools` für Installation auf einem angeschlossenen Gerät.
+- Optional `platform-tools` und ein Android-Emulator für Entwicklungstests.
 
 SDK-Komponenten über Android Studio oder `sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"` installieren. Die Android-SDK-Lizenzbedingungen dabei lesen und akzeptieren.
 
@@ -24,11 +24,16 @@ Optional: `-OutputDirectory 'C:\meine-ausgaben'` oder `-KeyStorePath 'C:\private
 
 Es werden nur offizielle SDK-Werkzeuge verwendet, kein Gradle und keine Online-Abhängigkeiten. Nach der Installation des SDK funktioniert der Build offline.
 
-## Gerätetest
+## Emulatortest
 
 ```powershell
-adb install -r build/outputs/ist-handy-0.1.0.apk
-adb shell am start -n de.leterel.isthandy/.MainActivity
+./tests/emulator-matrix.ps1 -Serial emulator-5570 -App handy `
+  -AdbPath C:\Android\Sdk\platform-tools\adb.exe `
+  -ApkPath ./build/outputs/ist-handy-0.1.0.apk `
+  -OutputDirectory ./build/emulator-matrix
 ```
 
-Prüfen: automatischer Start, Ergebnis nach knapp sechs Sekunden, Scrollen bei kleinen Displays, erneuter Scan nach Home → App, Hoch-/Querformat, größere Schrift, Telefon und Tablet. Kein Berechtigungsdialog sollte erscheinen.
+Den angegebenen Emulator vorher starten. Das Skript lehnt physische Geräte ab
+und prüft vor jedem ADB-Aufruf `ro.kernel.qemu=1`. Es installiert nur auf diesem
+Emulator, prüft vier Layouts und stellt Display-/Schrifteinstellungen anschließend
+wieder her. Ergebnisse und Grenzen: [EMULATOR-VERIFICATION.md](EMULATOR-VERIFICATION.md).
