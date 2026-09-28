@@ -2,7 +2,6 @@ package de.leterel.isthandy;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Insets;
 import android.graphics.Rect;
@@ -175,11 +174,11 @@ public final class MainActivity extends Activity {
             shortDp = Math.round(Math.min(metrics.widthPixels, metrics.heightPixels) / metrics.density);
         }
         boolean telephony = pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
-        int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_TYPE_MASK;
-        result = DeviceClassifier.classify(shortDp, pm.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN), telephony,
-            mode == Configuration.UI_MODE_TYPE_TELEVISION || pm.hasSystemFeature(PackageManager.FEATURE_LEANBACK),
-            mode == Configuration.UI_MODE_TYPE_WATCH || pm.hasSystemFeature(PackageManager.FEATURE_WATCH),
-            mode == Configuration.UI_MODE_TYPE_CAR || pm.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE),
+        result = DeviceClassifier.classifyAndroidFeatures(shortDp, pm.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN), telephony,
+            getResources().getConfiguration().uiMode,
+            pm.hasSystemFeature(PackageManager.FEATURE_LEANBACK),
+            pm.hasSystemFeature(PackageManager.FEATURE_WATCH),
+            pm.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE),
             pm.hasSystemFeature("android.hardware.type.pc"));
         features.setText("DISPLAY " + shortDp + " dp  /  TELEFONIE " + (telephony ? "JA" : "NEIN") + "  /  OFFLINE");
     }

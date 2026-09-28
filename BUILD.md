@@ -15,10 +15,10 @@ SDK-Komponenten über Android Studio oder `sdkmanager "platforms;android-36" "bu
 ./build.ps1 -SdkPath 'C:\Android\Sdk' -JavaHome 'C:\Program Files\Java\jdk-21'
 ```
 
-Das Skript führt zuerst zwölf unabhängige Geräte-Klassifikationstests aus, kompiliert Ressourcen/Java/Dex und erzeugt eine APK. Es prüft APK-Signatur und ZIP-Alignment und gibt den SHA-256-Hash aus.
+Das Skript führt zuerst 48 Geräte-Klassifikationsfälle aus, kompiliert Ressourcen/Java/Dex und erzeugt eine APK. Es prüft APK-Signatur und ZIP-Alignment und gibt den SHA-256-Hash aus.
 
-Ergebnis: `build/outputs/ist-handy-0.1.0.apk`. Die geprüfte Kopie dieses
-Arbeitsstands liegt unter `outputs/ist-handy/ist-handy-0.1.0.apk`.
+Ergebnis: `build/outputs/ist-handy-0.1.1.apk`. Die geprüfte Kopie dieses
+Arbeitsstands liegt unter `outputs/ist-handy/ist-handy-0.1.1.apk`.
 
 Optional: `-OutputDirectory 'C:\meine-ausgaben'` oder `-KeyStorePath 'C:\private-schluessel\ist-handy-debug.keystore'`. Der automatisch angelegte Entwicklungsschlüssel ist vom Repository ausgeschlossen. Bewahre ihn lokal auf, wenn spätere Builds bestehende Installationen aktualisieren sollen. Ein anderer Schlüssel erfordert eine vorherige Deinstallation.
 
@@ -29,7 +29,7 @@ Es werden nur offizielle SDK-Werkzeuge verwendet, kein Gradle und keine Online-A
 ```powershell
 ./tests/emulator-matrix.ps1 -Serial emulator-5570 -App handy `
   -AdbPath C:\Android\Sdk\platform-tools\adb.exe `
-  -ApkPath ./build/outputs/ist-handy-0.1.0.apk `
+  -ApkPath ./build/outputs/ist-handy-0.1.1.apk `
   -OutputDirectory ./build/emulator-matrix
 ```
 

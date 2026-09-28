@@ -2,6 +2,11 @@ package de.leterel.isthandy;
 
 /** Pure, testable heuristic. Android does not expose an authoritative phone/tablet flag. */
 public final class DeviceClassifier {
+    // Stable android.content.res.Configuration constants. Kept here as values so
+    // the platform-feature mapping can be tested without an Android runtime.
+    private static final int UI_MODE_TYPE_MASK = 0x0f;
+    private static final int UI_MODE_TYPE_TELEVISION = 0x04;
+    private static final int UI_MODE_TYPE_WATCH = 0x06;
     public enum Kind { PHONE, TABLET, UNKNOWN }
     public static final class Result {
         public final Kind kind;
@@ -12,6 +17,16 @@ public final class DeviceClassifier {
             this.title = title;
             this.explanation = explanation;
         }
+    }
+    public static Result classifyAndroidFeatures(int shortestDp, boolean touch, boolean telephony,
+                                                 int uiMode, boolean leanback, boolean watch,
+                                                 boolean automotive, boolean pc) {
+        int mode = uiMode & UI_MODE_TYPE_MASK;
+        // UI_MODE_TYPE_CAR is also available on ordinary phones placed in a car
+        // dock. Only FEATURE_AUTOMOTIVE identifies built-in automotive hardware.
+        return classify(shortestDp, touch, telephony,
+            mode == UI_MODE_TYPE_TELEVISION || leanback,
+            mode == UI_MODE_TYPE_WATCH || watch, automotive, pc);
     }
     public static Result classify(int shortestDp, boolean touch, boolean telephony,
                                   boolean tv, boolean watch, boolean car, boolean pc) {
