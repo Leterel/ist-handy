@@ -1,5 +1,14 @@
 # Fortschritt
 
+## 2026-09-30 — Lokale Regression geprüft
+
+- Produktionsklasse und JVM-Test neu kompiliert: alle 48 Klassifikationsfälle bestanden.
+- Ausgelieferte APK 0.1.1 erneut geprüft: SHA-256 unverändert (siehe 27.09.),
+  Signatur V2/V3 gültig, ZIP-Alignment gültig und keine Berechtigungen deklariert.
+- Kein neuer Geräte- oder Emulatorlauf; keine neue APK erstellt.
+- Werbung ist weiterhin nur geplant. Ad-SDK, Consent und Play-AAB fehlen.
+
+
 ## 2026-09-28 — Auslieferungsbelege für 0.1.1 abgeschlossen
 
 - Produktionsdiff, 48 JVM-Fälle und die vorhandenen 15 Emulatorprüfungen geprüft;
