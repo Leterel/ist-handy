@@ -1,5 +1,11 @@
 # Fortschritt
 
+## 2026-10-07 — AAB-Build
+
+- Reproduzierbares unsigniertes AAB mit lokalem Gradle-Cache gebaut (14.332 Bytes).
+- Archivstruktur mit BundleConfig, Manifest, DEX und Ressourcen geprüft.
+- Noch kein Play-Upload und keine Produktionssignatur.
+
 ## 2026-09-30 — Lokale Regression geprüft
 
 - Produktionsklasse und JVM-Test neu kompiliert: alle 48 Klassifikationsfälle bestanden.
