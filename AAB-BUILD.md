@@ -29,3 +29,20 @@ gestartet; Handy-/Tablet-Ergebnis erkannt. Beleg: result.json im lokalen Ordner
 outputs/ist-handy/aab-verification-20261007-pass2. Produktionssignierung ist
 nicht getestet. Wiederholbarer Runner: tests/test-app-bundle.ps1; nur explizite
 QEMU-Emulatoren zulässig, neue Ausgabeordner bewahren frühere Belege.
+
+## Automatisierter Offline-Build — 19.10.2026
+
+`build-bundle.ps1` nimmt `SdkPath`, `JavaHome`, `GradleCache`, `AndroidUserHome`,
+`BundleToolJar` und einen neuen `OutputDirectory` entgegen. Alle Pfade sind lokal
+konfigurierbar. Standardmäßig offline; `-Online` erlaubt fehlende Abhängigkeiten
+nachzuladen. Das Skript stellt vorherige Prozess-Umgebungsvariablen wieder her,
+prüft Paketname, Archivinhalt und fehlende Signatur und validiert mit bundletool.
+Ergebnis: `app-release-unsigned.aab`, Prüfsumme und Prüfprotokolle im Ausgabeordner.
+
+Erneuter Offline-Build und fünf Prüfungen in `tests/test-bundle-guards.ps1`
+bestanden: ungültiges Paket, fremder Schlüssel, physische Geräteseriennummer und
+bestehender Belegordner werden abgelehnt; der fest hinterlegte lokale
+Entwicklungsschlüssel erzeugt ein APK-Set. Dabei kein Gerät verwendet.
+Der Testschlüssel wird ausschließlich lokal bereitgestellt und nicht eingecheckt.
+Ein neuer Entwicklungsschlüssel erfordert eine bewusst geprüfte Anpassung des
+öffentlichen Zertifikat-Fingerabdrucks im Runner. Keine Produktionssignierung.
