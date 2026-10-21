@@ -41,6 +41,7 @@ Run-Checked (Join-Path $javaBin 'java.exe') @('-cp',(Join-Path $build 'test-clas
 Run-Checked (Join-Path $buildTools 'aapt2.exe') @('compile','--dir',(Join-Path $main 'res'),'-o',(Join-Path $build 'resources.zip'))
 Run-Checked (Join-Path $buildTools 'aapt2.exe') @('link','-o',(Join-Path $build 'unsigned.apk'),'--manifest',(Join-Path $main 'AndroidManifest.xml'),'-I',$androidJar,'--java',(Join-Path $build 'generated'),'--min-sdk-version','26','--target-sdk-version','36',(Join-Path $build 'resources.zip'))
 $sources = @(Get-ChildItem -LiteralPath (Join-Path $main 'java') -Recurse -Filter '*.java' | ForEach-Object FullName)
+$sources += @(Get-ChildItem -LiteralPath (Join-Path $projectRoot 'app/src/offline/java') -Recurse -Filter '*.java' | ForEach-Object FullName)
 $sources += @(Get-ChildItem -LiteralPath (Join-Path $build 'generated') -Recurse -Filter '*.java' | ForEach-Object FullName)
 Run-Checked (Join-Path $javaBin 'javac.exe') (@('-encoding','UTF-8','--release','8','-classpath',$androidJar,'-d',(Join-Path $build 'classes')) + $sources)
 Run-Checked (Join-Path $javaBin 'jar.exe') @('--create','--file',(Join-Path $build 'classes.jar'),'-C',(Join-Path $build 'classes'),'.')

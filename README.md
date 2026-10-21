@@ -2,6 +2,10 @@
 
 Android-App für eine extrem unnötige Frage. Öffnen → 5,8 Sekunden Scan-Theater → ein ehrliches, möglichst dumm formuliertes Urteil.
 
+Die folgenden Offlineangaben betreffen das normale APK. Zusätzlich gibt es ein
+getrenntes [Google-Testwerbeprofil](ADS-TEST.md) mit Internetzugriff, UMP und
+ausschließlich offiziellen Test-IDs. Es ersetzt das normale Paket nicht.
+
 - **„Ja, is Handy, Mois.“** bei kompaktem Touchdisplay mit gemeldeter Telefonie-Hardware.
 - **„Nee, is Tablet.“** ab 600 dp kurzer Displaykante.
 - Bei widersprüchlichen Merkmalen eine ausdrücklich unsichere Antwort.

@@ -1,4 +1,5 @@
 package de.leterel.isthandy;
+import de.leterel.ads.AdsHook;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -36,6 +37,7 @@ public final class MainActivity extends Activity {
     private long start;
     private DeviceClassifier.Result result;
     private LinearLayout resultPanel;
+    private AdsHook ads;
     private final Runnable tick = new Runnable() {
         @Override public void run() {
             float amount = Math.min(1f, (SystemClock.elapsedRealtime() - start) / (float) DURATION);
@@ -58,6 +60,7 @@ public final class MainActivity extends Activity {
                 resultPanel.setBackground(rounded(PANEL, 20, Color.rgb(83, 107, 47)));
                 scroll.post(() -> scroll.smoothScrollTo(0, Math.max(0, resultPanel.getTop() - dp(20))));
                 resultTitle.announceForAccessibility(result.title + " " + result.explanation);
+                ads.result(true);
             } else {
                 handler.postDelayed(this, 32);
             }
@@ -90,7 +93,7 @@ public final class MainActivity extends Activity {
         TextView brand = label("IST HANDY?", 16, WHITE, true);
         brand.setLetterSpacing(0.08f);
         top.addView(brand, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-        TextView badge = label("●  LOKAL", 10, LIME, true);
+        TextView badge = label(AdsHook.ENABLED ? "● TESTWERBUNG" : "●  LOKAL", 10, LIME, true);
         badge.setPadding(dp(10), dp(7), dp(10), dp(7));
         badge.setBackground(rounded(Color.rgb(31, 40, 30), 30, Color.TRANSPARENT));
         top.addView(badge);
@@ -141,13 +144,16 @@ public final class MainActivity extends Activity {
         resultBody.setLineSpacing(dp(3), 1f); add(resultPanel, resultBody, 9);
         features = label("", 10, MUTED, false);
         features.setTypeface(Typeface.MONOSPACE); add(column, features, 18);
-        TextView footer = label("GERÄTEMERKMALE ECHT. SCAN IST THEATER.\nKeine Kamera. Kein Internet. Kein Daten-Sammeln.\nBeim nächsten Öffnen beginnt das Drama erneut.", 10, MUTED, false);
+        TextView footer = label(AdsHook.ENABLED ? "GERÄTEMERKMALE ECHT. SCAN IST THEATER.\nTestprofil mit Google-Werbe-SDK und Internetzugriff.\nWerbung erst nach Datenschutzprüfung am Ergebnis." : "GERÄTEMERKMALE ECHT. SCAN IST THEATER.\nKeine Kamera. Kein Internet. Kein Daten-Sammeln.\nBeim nächsten Öffnen beginnt das Drama erneut.", 10, MUTED, false);
         footer.setLineSpacing(dp(4), 1f); add(column, footer, 12);
+        ads = new AdsHook(this, column);
         setContentView(scroll);
     }
 
     @Override protected void onResume() {
         super.onResume();
+        ads.result(false);
+        ads.resume();
         detectDevice();
         handler.removeCallbacks(tick);
         start = SystemClock.elapsedRealtime();
@@ -159,9 +165,11 @@ public final class MainActivity extends Activity {
         handler.post(tick);
     }
     @Override protected void onPause() {
+        ads.pause();
         handler.removeCallbacks(tick);
         super.onPause();
     }
+    @Override protected void onDestroy() { ads.destroy(); handler.removeCallbacks(tick); super.onDestroy(); }
     private void detectDevice() {
         PackageManager pm = getPackageManager();
         int shortDp;
@@ -180,7 +188,7 @@ public final class MainActivity extends Activity {
             pm.hasSystemFeature(PackageManager.FEATURE_WATCH),
             pm.hasSystemFeature(PackageManager.FEATURE_AUTOMOTIVE),
             pm.hasSystemFeature("android.hardware.type.pc"));
-        features.setText("DISPLAY " + shortDp + " dp  /  TELEFONIE " + (telephony ? "JA" : "NEIN") + "  /  OFFLINE");
+        features.setText("DISPLAY " + shortDp + " dp  /  TELEFONIE " + (telephony ? "JA" : "NEIN") + (AdsHook.ENABLED ? "  /  TESTWERBUNG" : "  /  OFFLINE"));
     }
     private TextView label(String text, float sp, int color, boolean bold) {
         TextView view = new TextView(this);
