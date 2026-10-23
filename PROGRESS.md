@@ -140,3 +140,18 @@ Buildpfade, Bedienung und Grenzen: ADS-TEST.md. Emulator-QA getrennt dokumentier
 
 Ist Handy: 48 Klassifikationsfälle bestanden, manuelle Offline-APK mit target36,
 leerer Berechtigungsliste, gültiger V2/V3-Debugsignatur und geprüftem Alignment.
+
+## 23.10.2026 — reproduzierbare Emulatorprüfung
+
+`tests/emulator-ads-failclosed.ps1` prüft das Google-Testprofil mit expliziter
+Emulatorseriennummer, festem APK-SHA256 und erwarteter Android-API. Vor jedem
+ADB-Schritt muss ro.kernel.qemu=1 sein. Ein vorhandenes Belegverzeichnis wird
+nicht überschrieben. Rotationszustand wird anschließend wiederhergestellt.
+
+Die aktuellen APKs bestehen auf API 34 und API 36: keine Werbung vor dem
+Ergebnis/Report, benutzbares Ergebnis bei UMP-Fehler, erneuter Versuch,
+Hintergrund/Rückkehr, Rotation und lebender App-Prozess ohne PID-bezogene
+Fatal Exception. Die API-36-Läufe wurden am 22.10.2026 abgeschlossen.
+Dies prüft ausdrücklich den Fehlerpfad der Sample-Konfiguration. Erfolgreiche
+Consentformulare, Bannerlieferung, Einnahmen und Netzwerkverkehrsmessung sind
+nicht nachgewiesen. Belege liegen im Chat unter outputs/android-ads-tests.
