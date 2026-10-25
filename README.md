@@ -16,8 +16,11 @@ Die Animation ist erfunden. Die Gerätemerkmale kommen aus Androids lokalen Disp
 
 ## Installieren
 
-[APK herunterladen](https://github.com/Leterel/ist-handy/releases/tag/v0.1.1)
+[Aktuellen Offline-Build herunterladen](https://github.com/Leterel/ist-handy/releases/tag/v0.1.1-build.20261025)
 (öffentliches Repository).
+
+Der datierte Vorab-Tag enthält den aktuellen geprüften Build bei unverändertem
+APK-Versionsnamen 0.1.1; die älteren Downloads bleiben erhalten.
 
 `ist-handy-0.1.1.apk` auf dein Android-Gerät kopieren, antippen und für die verwendete Datei-App bei Bedarf „Unbekannte Apps installieren“ erlauben. Danach **Ist Handy?** öffnen. Die APK ist mit einem Entwicklungsschlüssel signiert und zum direkten Ausprobieren gedacht, nicht zur Veröffentlichung im Play Store.
 
